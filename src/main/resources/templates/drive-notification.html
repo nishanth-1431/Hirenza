@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Placement Drive</title>
+</head>
+<body style="font-family: Arial, sans-serif; color: #333;">
+    <h2 style="color: #0056b3;">New Placement Drive Available!</h2>
+    <p>Dear <span th:text="${studentName}">Student</span>,</p>
+    <p>We are excited to announce a new placement drive that matches your eligibility criteria.</p>
+    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Company Name</td>
+            <td style="padding: 8px; border: 1px solid #ddd;" th:text="${companyName}">Company</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Role</td>
+            <td style="padding: 8px; border: 1px solid #ddd;" th:text="${role}">Role</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Deadline</td>
+            <td style="padding: 8px; border: 1px solid #ddd;" th:text="${deadline}">Deadline</td>
+        </tr>
+    </table>
+    <p>Please log in to your Hirenza portal to apply.</p>
+    <br/>
+    <p>Best regards,<br/>The Hirenza TPO Team</p>
+</body>
+</html>

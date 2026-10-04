@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Application Status Update</title>
+</head>
+<body style="font-family: Arial, sans-serif; color: #333;">
+    <h2 style="color: #0056b3;">Application Status Update</h2>
+    <p>Dear <span th:text="${studentName}">Student</span>,</p>
+    <p>There has been an update to your placement application.</p>
+    <p><strong>Company:</strong> <span th:text="${companyName}">Company</span></p>
+    <p><strong>New Status:</strong> <span th:text="${status}" style="font-weight: bold; color: #007bff;">STATUS</span></p>
+    <br/>
+    <p>Log in to your Hirenza portal for more details.</p>
+    <br/>
+    <p>Best regards,<br/>The Hirenza TPO Team</p>
+</body>
+</html>
