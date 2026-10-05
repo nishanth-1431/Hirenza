@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import Login from './pages/Login';
+import Landing from './pages/Landing';
 import StudentDashboard from './pages/student/StudentDashboard';
 import TpoDashboard from './pages/tpo/TpoDashboard';
 
@@ -14,15 +15,15 @@ function App() {
           <Route path="/login" element={<Login />} />
           
           <Route element={<ProtectedRoute allowedRole="STUDENT" />}>
-            <Route path="/student" element={<StudentDashboard />} />
+            <Route path="/student/dashboard" element={<StudentDashboard />} />
           </Route>
           
           <Route element={<ProtectedRoute allowedRole="TPO" />}>
-            <Route path="/tpo" element={<TpoDashboard />} />
+            <Route path="/tpo/dashboard" element={<TpoDashboard />} />
           </Route>
           
-          <Route path="/" element={<Navigate to="/login" replace />} />
-          <Route path="*" element={<Navigate to="/login" replace />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
     </AuthProvider>

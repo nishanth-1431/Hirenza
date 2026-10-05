@@ -9,7 +9,7 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private final String SECRET = "your_jwt_secret_key_here"; // In prod, inject via @Value
+    private final String SECRET = "VerySecretKeyForHirenza123!@#"; // In prod, inject via @Value
     private final Algorithm algorithm = Algorithm.HMAC256(SECRET);
 
     public String generateToken(String email, String role) {
