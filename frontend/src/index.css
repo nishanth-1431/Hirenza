@@ -1,9 +1,27 @@
 @import "tailwindcss";
 
+@theme {
+  --font-montserrat: 'Montserrat', system-ui, sans-serif;
+  --font-poppins: 'Poppins', system-ui, sans-serif;
+  --color-brand-dark: #17252A;
+  --color-brand-deep: #2B7A78;
+  --color-brand-teal: #3AAFA9;
+  --color-brand-mist: #DEF2F1;
+  --color-brand-white: #FEFFFF;
+}
+
 :root {
-  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.font-montserrat {
+  font-family: 'Montserrat', system-ui, sans-serif;
+}
+
+.font-poppins {
+  font-family: 'Poppins', system-ui, sans-serif;
 }

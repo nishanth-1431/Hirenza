@@ -226,19 +226,19 @@ const HrDashboard = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-sans">
             
             {/* Top Recruiter Header */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#2B7A78]/20">
                 <div>
                     <div className="flex items-center gap-2 mb-1">
-                        <span className="px-2 py-0.5 text-[10px] font-semibold tracking-wider rounded bg-blue-50 text-blue-700 border border-blue-200 shadow-2xs">
+                        <span className="px-2 py-0.5 text-[10px] font-bold tracking-wider rounded bg-[#DEF2F1] text-[#2B7A78] border border-[#3AAFA9]/30 shadow-2xs">
                             ENTERPRISE ATS RECRUITER PORTAL
                         </span>
                         <span className="text-xs text-slate-300">•</span>
-                        <span className="text-xs font-semibold text-slate-700">{activeDrive.companyName}</span>
+                        <span className="text-xs font-bold text-[#2B7A78]">{activeDrive.companyName}</span>
                     </div>
-                    <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+                    <h1 className="text-2xl font-bold tracking-tight text-[#17252A]">
                         Campus Recruitment Command Hub
                     </h1>
-                    <p className="text-xs text-slate-600 mt-1">
+                    <p className="text-xs text-[#2B7A78] mt-1">
                         Manage multi-role drives, customize interview round sequence, and advance qualified candidates.
                     </p>
                 </div>
@@ -246,7 +246,7 @@ const HrDashboard = () => {
                 <div className="flex items-center gap-3">
                     <button
                         onClick={() => setShowCreateModal(true)}
-                        className="inline-flex items-center px-4 py-2 text-xs font-semibold rounded-lg bg-slate-900 hover:bg-slate-800 text-white transition-colors shadow-xs group cursor-pointer"
+                        className="inline-flex items-center px-4 py-2 text-xs font-bold rounded-lg bg-[#3AAFA9] hover:bg-[#2B7A78] text-[#FEFFFF] transition-colors shadow-xs group cursor-pointer"
                     >
                         <PlusCircle className="w-4 h-4 mr-1.5 group-hover:rotate-90 transition-transform" />
                         Post New Drive
@@ -257,7 +257,7 @@ const HrDashboard = () => {
             {/* Drive Selector Strip */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mt-6">
                 <div className="md:col-span-1 space-y-3">
-                    <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+                    <h2 className="text-xs font-bold text-[#2B7A78] uppercase tracking-wider mb-2">
                         Your Active Drives
                     </h2>
                     {drives.map(drive => (
@@ -266,16 +266,16 @@ const HrDashboard = () => {
                             onClick={() => { setSelectedDriveId(drive.id); setFilterRole('ALL'); }}
                             className={`p-4 rounded-xl border cursor-pointer transition-all ${
                                 drive.id === selectedDriveId
-                                    ? 'bg-blue-50/50 border-blue-300 shadow-xs ring-1 ring-blue-300/60'
-                                    : 'bg-white border-slate-200 hover:border-slate-300 shadow-2xs'
+                                    ? 'bg-[#DEF2F1]/50 border-[#3AAFA9] shadow-xs ring-1 ring-[#3AAFA9]/50'
+                                    : 'bg-[#FEFFFF] border-[#2B7A78]/20 hover:border-[#3AAFA9] shadow-2xs'
                             }`}
                         >
                             <div className="flex items-center justify-between mb-1">
-                                <h3 className="text-sm font-bold text-slate-900">{drive.companyName}</h3>
-                                <span className="text-[10px] font-mono text-slate-500 font-medium">{drive.rounds.length} Rounds</span>
+                                <h3 className="text-sm font-bold text-[#17252A]">{drive.companyName}</h3>
+                                <span className="text-[10px] font-mono text-[#2B7A78] font-bold">{drive.rounds.length} Rounds</span>
                             </div>
-                            <p className="text-xs text-slate-600 mb-2 font-medium">{drive.title}</p>
-                            <div className="flex items-center justify-between text-[11px] text-slate-500 pt-2 border-t border-slate-100">
+                            <p className="text-xs text-[#2B7A78] mb-2 font-medium">{drive.title}</p>
+                            <div className="flex items-center justify-between text-[11px] text-[#2B7A78]/80 pt-2 border-t border-[#DEF2F1]">
                                 <span>Min CGPA: {drive.cgpaCutoff}</span>
                                 <span>{drive.roles.length} Roles</span>
                             </div>
@@ -287,13 +287,13 @@ const HrDashboard = () => {
                 <div className="md:col-span-3 space-y-6">
                     
                     {/* Selected Drive Details Card */}
-                    <div className="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-2xs">
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+                    <div className="bg-[#FEFFFF] border border-[#2B7A78]/15 rounded-2xl p-6 shadow-2xs">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#DEF2F1]">
                             <div>
-                                <h2 className="text-lg font-bold text-slate-900">{activeDrive.title}</h2>
-                                <div className="flex flex-wrap items-center gap-3 mt-1 text-xs text-slate-600">
-                                    <span className="flex items-center gap-1 font-medium">
-                                        <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                                <h2 className="text-lg font-bold text-[#17252A]">{activeDrive.title}</h2>
+                                <div className="flex flex-wrap items-center gap-3 mt-1 text-xs text-[#2B7A78]">
+                                    <span className="flex items-center gap-1 font-semibold">
+                                        <Calendar className="w-3.5 h-3.5 text-[#3AAFA9]" />
                                         Deadline: {activeDrive.deadline}
                                     </span>
                                     <span>•</span>
@@ -303,7 +303,7 @@ const HrDashboard = () => {
                                 </div>
                             </div>
                             <div className="flex items-center gap-2">
-                                <span className="px-2.5 py-1 text-xs font-semibold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                <span className="px-2.5 py-1 text-xs font-bold rounded-full bg-[#DEF2F1] text-[#2B7A78] border border-[#3AAFA9]/30">
                                     Active Hiring
                                 </span>
                             </div>
@@ -311,15 +311,15 @@ const HrDashboard = () => {
 
                         {/* Roles Under this Drive */}
                         <div className="mt-4">
-                            <span className="text-xs font-semibold text-slate-700 block mb-2">Hiring For Roles:</span>
+                            <span className="text-xs font-bold text-[#17252A] block mb-2">Hiring For Roles:</span>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 {activeDrive.roles.map(role => (
-                                    <div key={role.id} className="p-3.5 bg-slate-50 border border-slate-200/80 rounded-xl flex justify-between items-center">
+                                    <div key={role.id} className="p-3.5 bg-[#DEF2F1]/30 border border-[#2B7A78]/15 rounded-xl flex justify-between items-center">
                                         <div>
-                                            <h4 className="text-xs font-bold text-slate-900">{role.title}</h4>
-                                            <span className="text-[11px] text-slate-500 font-medium">{role.openings} open positions</span>
+                                            <h4 className="text-xs font-bold text-[#17252A]">{role.title}</h4>
+                                            <span className="text-[11px] text-[#2B7A78] font-semibold">{role.openings} open positions</span>
                                         </div>
-                                        <span className="text-xs font-mono font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                                        <span className="text-xs font-mono font-bold text-[#2B7A78] bg-[#DEF2F1] px-2 py-0.5 rounded border border-[#3AAFA9]/30">
                                             {role.ctc}
                                         </span>
                                     </div>
@@ -328,22 +328,22 @@ const HrDashboard = () => {
                         </div>
 
                         {/* Interview Rounds Sequence */}
-                        <div className="mt-5 pt-4 border-t border-slate-100">
-                            <span className="text-xs font-semibold text-slate-700 block mb-2.5">
+                        <div className="mt-5 pt-4 border-t border-[#DEF2F1]">
+                            <span className="text-xs font-bold text-[#17252A] block mb-2.5">
                                 Configured Interview Process ({activeDrive.rounds.length} Stages):
                             </span>
                             <div className="flex flex-wrap items-center gap-2">
                                 {activeDrive.rounds.map((rnd, idx) => (
                                     <div key={rnd.sequence} className="flex items-center">
-                                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs">
-                                            <span className="w-4 h-4 rounded-full bg-slate-200 flex items-center justify-center text-[10px] font-mono text-slate-700 font-bold">
+                                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#DEF2F1]/50 border border-[#2B7A78]/20 text-xs">
+                                            <span className="w-4 h-4 rounded-full bg-[#2B7A78] text-[#FEFFFF] flex items-center justify-center text-[10px] font-mono font-bold">
                                                 {rnd.sequence}
                                             </span>
-                                            <span className="text-slate-800 font-semibold">{rnd.name}</span>
-                                            <span className="text-[10px] text-slate-500 font-medium">({rnd.type})</span>
+                                            <span className="text-[#17252A] font-bold">{rnd.name}</span>
+                                            <span className="text-[10px] text-[#2B7A78] font-medium">({rnd.type})</span>
                                         </div>
                                         {idx < activeDrive.rounds.length - 1 && (
-                                            <ChevronRight className="w-3.5 h-3.5 text-slate-400 mx-1" />
+                                            <ChevronRight className="w-3.5 h-3.5 text-[#2B7A78]/50 mx-1" />
                                         )}
                                     </div>
                                 ))}
@@ -352,23 +352,23 @@ const HrDashboard = () => {
                     </div>
 
                     {/* Candidate Pipeline Section */}
-                    <div className="bg-white border border-slate-200/90 rounded-2xl shadow-2xs overflow-hidden">
-                        <div className="p-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div className="bg-[#FEFFFF] border border-[#2B7A78]/15 rounded-2xl shadow-2xs overflow-hidden">
+                        <div className="p-4 border-b border-[#DEF2F1] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                             <div className="flex items-center gap-2">
-                                <Users className="w-4 h-4 text-blue-600" />
-                                <h3 className="text-sm font-bold text-slate-900">
+                                <Users className="w-4 h-4 text-[#2B7A78]" />
+                                <h3 className="text-sm font-bold text-[#17252A]">
                                     Applicant Pipeline ({filteredCandidates.length})
                                 </h3>
                             </div>
 
                             <div className="flex flex-wrap items-center gap-2">
                                 {/* Role filter */}
-                                <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1 text-xs">
-                                    <Filter className="w-3 h-3 text-slate-400" />
+                                <div className="flex items-center gap-1.5 bg-[#DEF2F1]/50 border border-[#2B7A78]/20 rounded-lg px-2.5 py-1 text-xs">
+                                    <Filter className="w-3 h-3 text-[#2B7A78]" />
                                     <select
                                         value={filterRole}
                                         onChange={(e) => setFilterRole(e.target.value)}
-                                        className="bg-transparent text-slate-700 font-medium focus:outline-none text-xs"
+                                        className="bg-transparent text-[#17252A] font-semibold focus:outline-none text-xs"
                                     >
                                         <option value="ALL">All Roles</option>
                                         {activeDrive.roles.map(r => (
@@ -379,13 +379,13 @@ const HrDashboard = () => {
 
                                 {/* Search Bar */}
                                 <div className="relative">
-                                    <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2" />
+                                    <Search className="w-3.5 h-3.5 text-[#2B7A78] absolute left-2.5 top-2" />
                                     <input
                                         type="text"
                                         placeholder="Search candidate or skill..."
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
-                                        className="pl-8 pr-3 py-1 text-xs bg-slate-50 border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:ring-1 focus:ring-slate-900 focus:bg-white"
+                                        className="pl-8 pr-3 py-1 text-xs bg-[#DEF2F1]/30 border border-[#2B7A78]/20 rounded-lg text-[#17252A] focus:outline-none focus:ring-1 focus:ring-[#3AAFA9] focus:bg-[#FEFFFF]"
                                     />
                                 </div>
                             </div>
@@ -393,8 +393,8 @@ const HrDashboard = () => {
 
                         {/* Candidates Table */}
                         <div className="overflow-x-auto">
-                            <table className="min-w-full divide-y divide-slate-100 text-left text-xs">
-                                <thead className="bg-slate-50 text-slate-600 font-semibold">
+                            <table className="min-w-full divide-y divide-[#DEF2F1] text-left text-xs">
+                                <thead className="bg-[#DEF2F1]/40 text-[#2B7A78] font-bold">
                                     <tr>
                                         <th className="py-3 px-4">Student</th>
                                         <th className="py-3 px-3">Role Applied</th>
@@ -404,62 +404,62 @@ const HrDashboard = () => {
                                         <th className="py-3 px-4 text-right">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-slate-100">
+                                <tbody className="divide-y divide-[#DEF2F1]">
                                     {filteredCandidates.length === 0 ? (
                                         <tr>
-                                            <td colSpan={6} className="py-8 text-center text-slate-500 font-medium">
+                                            <td colSpan={6} className="py-8 text-center text-[#2B7A78] font-medium">
                                                 No candidates match the selected criteria.
                                             </td>
                                         </tr>
                                     ) : (
                                         filteredCandidates.map(candidate => (
-                                            <tr key={candidate.id} className="hover:bg-slate-50/70 transition-colors">
+                                            <tr key={candidate.id} className="hover:bg-[#DEF2F1]/20 transition-colors">
                                                 <td className="py-3.5 px-4">
                                                     <div>
-                                                        <span className="font-bold text-slate-900">{candidate.name}</span>
-                                                        <div className="text-[11px] text-slate-500 font-medium">
+                                                        <span className="font-bold text-[#17252A]">{candidate.name}</span>
+                                                        <div className="text-[11px] text-[#2B7A78] font-medium">
                                                             {candidate.branch} • CGPA: {candidate.cgpa}
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td className="py-3.5 px-3 text-slate-700 font-medium">
+                                                <td className="py-3.5 px-3 text-[#17252A] font-medium">
                                                     {candidate.roleTitle}
                                                 </td>
                                                 <td className="py-3.5 px-3">
-                                                    <span className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold border ${
+                                                    <span className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold border ${
                                                         candidate.matchScore >= 85 
-                                                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                                                            ? 'bg-[#DEF2F1] text-[#2B7A78] border-[#3AAFA9]/40'
                                                             : 'bg-amber-50 text-amber-700 border-amber-200'
                                                     }`}>
                                                         {candidate.matchScore}% Match
                                                     </span>
                                                 </td>
                                                 <td className="py-3.5 px-3">
-                                                    <div className="text-slate-800 font-bold">
+                                                    <div className="text-[#17252A] font-bold">
                                                         Round {candidate.currentRoundSeq} of {activeDrive.rounds.length}
                                                     </div>
-                                                    <div className="text-[10px] text-slate-500 font-medium">
+                                                    <div className="text-[10px] text-[#2B7A78] font-semibold">
                                                         {activeDrive.rounds.find(r => r.sequence === candidate.currentRoundSeq)?.name}
                                                     </div>
                                                 </td>
                                                 <td className="py-3.5 px-3">
                                                     {candidate.status === 'OFFER_EXTENDED' && (
-                                                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-200">
-                                                            <Award className="w-3 h-3 text-emerald-600" /> Offer Made
+                                                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#2B7A78] bg-[#DEF2F1] px-2.5 py-0.5 rounded border border-[#3AAFA9]/40">
+                                                            <Award className="w-3 h-3 text-[#3AAFA9]" /> Offer Made
                                                         </span>
                                                     )}
                                                     {candidate.status === 'SCHEDULED' && (
-                                                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                                                            <Clock className="w-3 h-3 text-blue-600" /> Round Scheduled
+                                                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#2B7A78] bg-[#DEF2F1]/60 px-2 py-0.5 rounded border border-[#2B7A78]/25">
+                                                            <Clock className="w-3 h-3 text-[#3AAFA9]" /> Round Scheduled
                                                         </span>
                                                     )}
                                                     {candidate.status === 'CLEARED' && (
-                                                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                                                            <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Round Cleared
+                                                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#2B7A78] bg-[#DEF2F1] px-2 py-0.5 rounded border border-[#3AAFA9]/40">
+                                                            <CheckCircle2 className="w-3 h-3 text-[#3AAFA9]" /> Round Cleared
                                                         </span>
                                                     )}
                                                     {candidate.status === 'REJECTED' && (
-                                                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-red-700 bg-red-50 px-2 py-0.5 rounded border border-red-200">
+                                                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded border border-red-200">
                                                             <XCircle className="w-3 h-3 text-red-600" /> Rejected
                                                         </span>
                                                     )}
@@ -469,20 +469,20 @@ const HrDashboard = () => {
                                                         <div className="flex items-center justify-end gap-1.5">
                                                             <button
                                                                 onClick={() => setEvaluatingCandidate(candidate)}
-                                                                className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-semibold transition-colors flex items-center gap-1 cursor-pointer shadow-xs"
+                                                                className="px-3 py-1.5 rounded-lg bg-[#3AAFA9] hover:bg-[#2B7A78] text-[#FEFFFF] text-[11px] font-bold transition-colors flex items-center gap-1 cursor-pointer shadow-xs"
                                                             >
                                                                 Evaluate & Advance
                                                                 <ArrowRight className="w-3 h-3" />
                                                             </button>
                                                             <button
                                                                 onClick={() => handleReject(candidate.id)}
-                                                                className="px-2.5 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-[11px] font-semibold transition-colors cursor-pointer"
+                                                                className="px-2.5 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-[11px] font-bold transition-colors cursor-pointer"
                                                             >
                                                                 Reject
                                                             </button>
                                                         </div>
                                                     ) : (
-                                                        <span className="text-[11px] text-slate-400 font-medium">Pipeline Finished</span>
+                                                        <span className="text-[11px] text-[#2B7A78]/70 font-medium">Pipeline Finished</span>
                                                     )}
                                                 </td>
                                             </tr>
@@ -499,23 +499,23 @@ const HrDashboard = () => {
             {/* Evaluate & Advance Modal */}
             <AnimatePresence>
                 {evaluatingCandidate && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#17252A]/40 backdrop-blur-xs">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
-                            className="bg-white border border-slate-200 rounded-3xl max-w-md w-full p-7 shadow-2xl relative"
+                            className="bg-[#FEFFFF] border border-[#2B7A78]/20 rounded-3xl max-w-md w-full p-7 shadow-2xl relative"
                         >
-                            <h3 className="text-base font-bold text-slate-900 mb-1">
+                            <h3 className="text-base font-bold text-[#17252A] mb-1">
                                 Evaluate Candidate: {evaluatingCandidate.name}
                             </h3>
-                            <p className="text-xs text-slate-600 mb-4">
+                            <p className="text-xs text-[#2B7A78] mb-4">
                                 Currently in {activeDrive.rounds.find(r => r.sequence === evaluatingCandidate.currentRoundSeq)?.name}
                             </p>
 
                             <div className="space-y-4">
                                 <div>
-                                    <label className="block text-xs font-semibold text-slate-700 mb-1">
+                                    <label className="block text-xs font-bold text-[#17252A] mb-1">
                                         Round Score / Rating (1 to 10)
                                     </label>
                                     <input
@@ -524,12 +524,12 @@ const HrDashboard = () => {
                                         max="10"
                                         value={evalScore}
                                         onChange={(e) => setEvalScore(e.target.value)}
-                                        className="w-full px-3 py-2 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:ring-1 focus:ring-slate-900 shadow-2xs"
+                                        className="w-full px-3 py-2 text-xs bg-[#FEFFFF] border border-[#2B7A78]/30 rounded-lg text-[#17252A] focus:outline-none focus:ring-1 focus:ring-[#3AAFA9] shadow-2xs"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs font-semibold text-slate-700 mb-1">
+                                    <label className="block text-xs font-bold text-[#17252A] mb-1">
                                         Interviewer Notes & Technical Feedback
                                     </label>
                                     <textarea
@@ -537,22 +537,22 @@ const HrDashboard = () => {
                                         value={evalNotes}
                                         onChange={(e) => setEvalNotes(e.target.value)}
                                         placeholder="e.g. Demonstrated strong problem-solving in data structures. Cleared for next round."
-                                        className="w-full px-3 py-2 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:ring-1 focus:ring-slate-900 shadow-2xs resize-none"
+                                        className="w-full px-3 py-2 text-xs bg-[#FEFFFF] border border-[#2B7A78]/30 rounded-lg text-[#17252A] focus:outline-none focus:ring-1 focus:ring-[#3AAFA9] shadow-2xs resize-none"
                                     />
                                 </div>
 
-                                <div className="flex justify-end gap-2 pt-3 border-t border-slate-100">
+                                <div className="flex justify-end gap-2 pt-3 border-t border-[#DEF2F1]">
                                     <button
                                         type="button"
                                         onClick={() => setEvaluatingCandidate(null)}
-                                        className="px-3.5 py-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 cursor-pointer"
+                                        className="px-3.5 py-1.5 text-xs font-semibold text-[#2B7A78] hover:text-[#17252A] cursor-pointer"
                                     >
                                         Cancel
                                     </button>
                                     <button
                                         type="button"
                                         onClick={() => handleAdvanceRound(evaluatingCandidate)}
-                                        className="px-4 py-2 text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+                                        className="px-4 py-2 text-xs font-bold bg-[#3AAFA9] hover:bg-[#2B7A78] text-[#FEFFFF] rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
                                     >
                                         <CheckCircle className="w-3.5 h-3.5" />
                                         Pass & Advance Round
@@ -567,95 +567,95 @@ const HrDashboard = () => {
             {/* Post New Drive Modal */}
             <AnimatePresence>
                 {showCreateModal && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs overflow-y-auto">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#17252A]/40 backdrop-blur-xs overflow-y-auto">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
-                            className="bg-white border border-slate-200 rounded-3xl max-w-lg w-full p-7 shadow-2xl relative my-8"
+                            className="bg-[#FEFFFF] border border-[#2B7A78]/20 rounded-3xl max-w-lg w-full p-7 shadow-2xl relative my-8"
                         >
-                            <h3 className="text-base font-bold text-slate-900 mb-1">
+                            <h3 className="text-base font-bold text-[#17252A] mb-1">
                                 Configure Campus Placement Drive
                             </h3>
-                            <p className="text-xs text-slate-600 mb-4">
+                            <p className="text-xs text-[#2B7A78] mb-4">
                                 Define multiple roles, eligibility cutoffs, and sequential interview rounds.
                             </p>
 
                             <form onSubmit={handleCreateDriveSubmit} className="space-y-4">
                                 <div className="grid grid-cols-2 gap-3">
                                     <div>
-                                        <label className="block text-xs font-semibold text-slate-700 mb-1">Company</label>
+                                        <label className="block text-xs font-bold text-[#17252A] mb-1">Company</label>
                                         <input
                                             type="text"
                                             required
                                             value={newDrive.companyName}
                                             onChange={(e) => setNewDrive({ ...newDrive, companyName: e.target.value })}
-                                            className="w-full px-3 py-2 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 shadow-2xs"
+                                            className="w-full px-3 py-2 text-xs bg-[#FEFFFF] border border-[#2B7A78]/30 rounded-lg text-[#17252A] shadow-2xs"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-semibold text-slate-700 mb-1">Drive Title</label>
+                                        <label className="block text-xs font-bold text-[#17252A] mb-1">Drive Title</label>
                                         <input
                                             type="text"
                                             required
                                             placeholder="e.g. 2026 Tech Hiring"
                                             value={newDrive.title}
                                             onChange={(e) => setNewDrive({ ...newDrive, title: e.target.value })}
-                                            className="w-full px-3 py-2 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 shadow-2xs"
+                                            className="w-full px-3 py-2 text-xs bg-[#FEFFFF] border border-[#2B7A78]/30 rounded-lg text-[#17252A] shadow-2xs"
                                         />
                                     </div>
                                 </div>
 
                                 <div className="grid grid-cols-3 gap-3">
                                     <div>
-                                        <label className="block text-xs font-semibold text-slate-700 mb-1">Deadline</label>
+                                        <label className="block text-xs font-bold text-[#17252A] mb-1">Deadline</label>
                                         <input
                                             type="date"
                                             required
                                             value={newDrive.deadline}
                                             onChange={(e) => setNewDrive({ ...newDrive, deadline: e.target.value })}
-                                            className="w-full px-3 py-2 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 shadow-2xs"
+                                            className="w-full px-3 py-2 text-xs bg-[#FEFFFF] border border-[#2B7A78]/30 rounded-lg text-[#17252A] shadow-2xs"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-semibold text-slate-700 mb-1">Min CGPA</label>
+                                        <label className="block text-xs font-bold text-[#17252A] mb-1">Min CGPA</label>
                                         <input
                                             type="number"
                                             step="0.1"
                                             value={newDrive.cgpaCutoff}
                                             onChange={(e) => setNewDrive({ ...newDrive, cgpaCutoff: e.target.value })}
-                                            className="w-full px-3 py-2 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 shadow-2xs"
+                                            className="w-full px-3 py-2 text-xs bg-[#FEFFFF] border border-[#2B7A78]/30 rounded-lg text-[#17252A] shadow-2xs"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-semibold text-slate-700 mb-1">Max Arrears</label>
+                                        <label className="block text-xs font-bold text-[#17252A] mb-1">Max Arrears</label>
                                         <input
                                             type="number"
                                             value={newDrive.maxArrears}
                                             onChange={(e) => setNewDrive({ ...newDrive, maxArrears: e.target.value })}
-                                            className="w-full px-3 py-2 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 shadow-2xs"
+                                            className="w-full px-3 py-2 text-xs bg-[#FEFFFF] border border-[#2B7A78]/30 rounded-lg text-[#17252A] shadow-2xs"
                                         />
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs font-semibold text-slate-700 mb-1">Allowed Branches (comma-separated)</label>
+                                    <label className="block text-xs font-bold text-[#17252A] mb-1">Allowed Branches (comma-separated)</label>
                                     <input
                                         type="text"
                                         value={newDrive.allowedBranches}
                                         onChange={(e) => setNewDrive({ ...newDrive, allowedBranches: e.target.value })}
-                                        className="w-full px-3 py-2 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 shadow-2xs"
+                                        className="w-full px-3 py-2 text-xs bg-[#FEFFFF] border border-[#2B7A78]/30 rounded-lg text-[#17252A] shadow-2xs"
                                     />
                                 </div>
 
                                 {/* Multi-Role Rows */}
                                 <div>
                                     <div className="flex justify-between items-center mb-1.5">
-                                        <label className="block text-xs font-semibold text-slate-700">Job Profiles / Roles</label>
+                                        <label className="block text-xs font-bold text-[#17252A]">Job Profiles / Roles</label>
                                         <button
                                             type="button"
                                             onClick={addRoleRow}
-                                            className="text-[11px] text-blue-600 hover:text-blue-700 font-semibold cursor-pointer"
+                                            className="text-[11px] text-[#2B7A78] hover:text-[#3AAFA9] font-bold cursor-pointer"
                                         >
                                             + Add Role
                                         </button>
@@ -672,7 +672,7 @@ const HrDashboard = () => {
                                                         copy[i].title = e.target.value;
                                                         setNewDrive({ ...newDrive, roles: copy });
                                                     }}
-                                                    className="flex-2 px-3 py-1.5 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 shadow-2xs"
+                                                    className="flex-2 px-3 py-1.5 text-xs bg-[#FEFFFF] border border-[#2B7A78]/30 rounded-lg text-[#17252A] shadow-2xs"
                                                 />
                                                 <input
                                                     type="text"
@@ -683,24 +683,24 @@ const HrDashboard = () => {
                                                         copy[i].ctc = e.target.value;
                                                         setNewDrive({ ...newDrive, roles: copy });
                                                     }}
-                                                    className="flex-1 px-3 py-1.5 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 shadow-2xs"
+                                                    className="flex-1 px-3 py-1.5 text-xs bg-[#FEFFFF] border border-[#2B7A78]/30 rounded-lg text-[#17252A] shadow-2xs"
                                                 />
                                             </div>
                                         ))}
                                     </div>
                                 </div>
 
-                                <div className="flex justify-end gap-2 pt-4 border-t border-slate-100">
+                                <div className="flex justify-end gap-2 pt-4 border-t border-[#DEF2F1]">
                                     <button
                                         type="button"
                                         onClick={() => setShowCreateModal(false)}
-                                        className="px-3.5 py-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 cursor-pointer"
+                                        className="px-3.5 py-1.5 text-xs font-semibold text-[#2B7A78] hover:text-[#17252A] cursor-pointer"
                                     >
                                         Cancel
                                     </button>
                                     <button
                                         type="submit"
-                                        className="px-4 py-2 text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-white rounded-lg transition-colors cursor-pointer shadow-xs"
+                                        className="px-4 py-2 text-xs font-bold bg-[#3AAFA9] hover:bg-[#2B7A78] text-[#FEFFFF] rounded-lg transition-colors cursor-pointer shadow-xs"
                                     >
                                         Publish Drive
                                     </button>
