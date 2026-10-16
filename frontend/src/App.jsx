@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Landing from './pages/Landing';
 import StudentDashboard from './pages/student/StudentDashboard';
 import TpoDashboard from './pages/tpo/TpoDashboard';
+import HrDashboard from './pages/hr/HrDashboard';
 
 function App() {
   return (
@@ -16,6 +17,10 @@ function App() {
           
           <Route element={<ProtectedRoute allowedRole="STUDENT" />}>
             <Route path="/student/dashboard" element={<StudentDashboard />} />
+          </Route>
+
+          <Route element={<ProtectedRoute allowedRole="HR" />}>
+            <Route path="/hr/dashboard" element={<HrDashboard />} />
           </Route>
           
           <Route element={<ProtectedRoute allowedRole="TPO" />}>

@@ -11,14 +11,16 @@ const ProtectedRoute = ({ allowedRole }) => {
     }
 
     if (allowedRole && role !== allowedRole) {
-        return <Navigate to={role === 'TPO' ? '/tpo/dashboard' : '/student/dashboard'} replace />;
+        if (role === 'TPO') return <Navigate to="/tpo/dashboard" replace />;
+        if (role === 'HR') return <Navigate to="/hr/dashboard" replace />;
+        return <Navigate to="/student/dashboard" replace />;
     }
 
     return (
-        <div className="min-h-screen bg-zinc-950 font-sans text-zinc-50 selection:bg-zinc-800 selection:text-white relative overflow-x-hidden">
-            {/* Subtle Grid Background */}
-            <div className="fixed inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
-            <div className="fixed left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-zinc-500 opacity-[0.10] blur-[100px]" />
+        <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-slate-200 selection:text-slate-900 relative overflow-x-hidden">
+            {/* Subtle Enterprise Light Grid Background */}
+            <div className="fixed inset-0 bg-[linear-gradient(to_right,#0f172a08_1px,transparent_1px),linear-gradient(to_bottom,#0f172a08_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+            <div className="fixed left-0 right-0 top-0 -z-10 m-auto h-[350px] w-[350px] rounded-full bg-blue-500 opacity-[0.04] blur-[100px]" />
 
             <div className="relative z-10 flex flex-col min-h-screen">
                 <Navbar />
