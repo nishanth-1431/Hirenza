@@ -8,6 +8,8 @@ import StudentDashboard from './pages/student/StudentDashboard';
 import TpoDashboard from './pages/tpo/TpoDashboard';
 import HrDashboard from './pages/hr/HrDashboard';
 
+import AiCopilotChat from './components/common/AiCopilotChat';
+
 function App() {
   return (
     <AuthProvider>
@@ -30,6 +32,9 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+
+        {/* Global Floating AI Placement Copilot Widget */}
+        <AiCopilotChat />
       </Router>
     </AuthProvider>
   );
