@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
     Briefcase, Users, PlusCircle, CheckCircle, XCircle, Clock, 
     ArrowRight, Star, Search, Filter, Calendar, MapPin, 
-    ChevronRight, Award, FileText, Send, Building2, CheckCircle2
+    ChevronRight, Award, FileText, Send, Building2, CheckCircle2, ShieldCheck
 } from 'lucide-react';
 
 const mockDrivesInitial = [
