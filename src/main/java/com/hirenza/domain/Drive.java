@@ -31,6 +31,13 @@ public class Drive {
     @Column(name = "application_deadline", nullable = false)
     private LocalDate applicationDeadline;
 
+    @Column(name = "ctc_lpa")
+    private Double ctc;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "placement_tier")
+    private PlacementTier tier;
+
     @OneToMany(mappedBy = "drive", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EligibilityRule> eligibilityRules = new ArrayList<>();
 
@@ -50,6 +57,8 @@ public class Drive {
         this.companyName         = builder.companyName;
         this.role                = builder.role;
         this.applicationDeadline = builder.applicationDeadline;
+        this.ctc                 = builder.ctc != null ? builder.ctc : 6.0;
+        this.tier                = builder.tier != null ? builder.tier : PlacementTier.fromCtc(this.ctc);
 
         if (builder.cgpaCutoff != null) {
             addEligibilityRule(EligibilityRule.cgpaCutoff(builder.cgpaCutoff));
@@ -83,9 +92,15 @@ public class Drive {
     public Set<Skill> getRequiredSkills() { return requiredSkills; }
     public List<Double> getEmbedding() { return embedding; }
 
+    public Double getCtc() { return ctc; }
+    public void setCtc(Double ctc) { this.ctc = ctc; }
+    public PlacementTier getTier() { return tier; }
+    public void setTier(PlacementTier tier) { this.tier = tier; }
+
     @Override
     public String toString() {
         return "Drive{company='" + companyName + "', role='" + role +
+               "', ctc=" + ctc + " LPA, tier=" + tier +
                "', deadline=" + applicationDeadline + "}";
     }
 
@@ -93,12 +108,14 @@ public class Drive {
 
     public static class Builder {
 
-        private String      companyName;
-        private String      role;
-        private LocalDate   applicationDeadline;
-        private Double      cgpaCutoff;
-        private Set<String> allowedBranches;
-        private Integer     maxArrears;
+        private String        companyName;
+        private String        role;
+        private LocalDate     applicationDeadline;
+        private Double        cgpaCutoff;
+        private Set<String>   allowedBranches;
+        private Integer       maxArrears;
+        private Double        ctc;
+        private PlacementTier tier;
 
         public Builder companyName(String companyName) {
             this.companyName = companyName;
@@ -127,6 +144,16 @@ public class Drive {
 
         public Builder maxArrears(int max) {
             this.maxArrears = max;
+            return this;
+        }
+
+        public Builder ctc(Double ctc) {
+            this.ctc = ctc;
+            return this;
+        }
+
+        public Builder tier(PlacementTier tier) {
+            this.tier = tier;
             return this;
         }
 

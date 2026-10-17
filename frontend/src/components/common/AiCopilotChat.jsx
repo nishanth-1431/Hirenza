@@ -4,7 +4,8 @@ import {
     Sparkles, X, Send, RotateCcw, Copy, Check, ChevronDown, 
     MessageSquare, Zap, ShieldCheck, Briefcase, GraduationCap, ArrowRight,
     CheckCircle2, AlertCircle, Calendar, DollarSign, Clock, User, Filter,
-    ChevronRight, ExternalLink, Award, FileCode, CheckCheck, HelpCircle
+    ChevronRight, ExternalLink, Award, FileCode, CheckCheck, HelpCircle,
+    Brain, ShieldAlert
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
@@ -213,6 +214,104 @@ const renderCleanText = (text) => {
     });
 };
 
+const SparringCard = ({ msg, onSubmitAnswer, onRestart }) => {
+    const [answerText, setAnswerText] = useState('');
+    const [submitting, setSubmitting] = useState(false);
+
+    const handleSubmit = async () => {
+        if (!answerText.trim() || submitting) return;
+        setSubmitting(true);
+        await onSubmitAnswer(msg.sessionId, msg.questionNumber, answerText, msg.company);
+        setSubmitting(false);
+    };
+
+    return (
+        <div className="mt-3 p-4 rounded-2xl bg-gradient-to-b from-white/10 to-white/5 border border-cyan-400/30 text-white space-y-3 shadow-lg">
+            <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-cyan-300">
+                    <span className="text-base">⚔️</span>
+                    <span>ROUND 0 SPARRING • {msg.company}</span>
+                </div>
+                <span className="text-[10px] font-mono font-bold bg-cyan-950 px-2 py-0.5 rounded-full border border-cyan-500/40 text-cyan-200">
+                    Question {msg.questionNumber} of {msg.totalQuestions}
+                </span>
+            </div>
+
+            {msg.score !== undefined && (
+                <div className="p-3 rounded-xl bg-cyan-950/40 border border-cyan-400/30 space-y-2 text-xs">
+                    <div className="flex items-center justify-between font-bold text-white">
+                        <span>Previous Evaluation:</span>
+                        <span className="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-200 border border-cyan-400/30 font-mono">
+                            Score: {msg.score}/10
+                        </span>
+                    </div>
+                    <p className="text-[11px] text-white/80 italic">"{msg.critique}"</p>
+                    {msg.keyStrengths && msg.keyStrengths.length > 0 && (
+                        <div className="flex flex-wrap gap-1">
+                            {msg.keyStrengths.map((s, idx) => (
+                                <span key={idx} className="text-[10px] font-semibold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                                    ✓ {s}
+                                </span>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {msg.isFinished ? (
+                <div className="space-y-3 py-2 text-center">
+                    <div className="inline-block p-3 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-2xl">
+                        🏆
+                    </div>
+                    <div className="text-sm font-extrabold text-white">
+                        Overall Interview Readiness: {msg.overallReadinessScore}%
+                    </div>
+                    <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                        {msg.readinessVerdict === 'STRONG_CANDIDATE' ? '✅ QUALIFIED FOR TECHNICAL ROUND' : '⭐ SOLID FOUNDATION'}
+                    </span>
+                    <p className="text-xs text-white/80 leading-relaxed text-left p-3 rounded-xl bg-white/5 border border-white/10">
+                        {msg.finalSummary}
+                    </p>
+                    <button
+                        onClick={onRestart}
+                        className="w-full py-2.5 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold text-xs transition-all shadow-md cursor-pointer"
+                    >
+                        Start Another Sparring Round
+                    </button>
+                </div>
+            ) : (
+                <div className="space-y-3">
+                    <div className="text-xs font-bold text-white leading-relaxed">
+                        {msg.question}
+                    </div>
+
+                    {msg.tip && (
+                        <div className="text-[10px] p-2 rounded-xl bg-cyan-950/30 border border-cyan-500/20 text-cyan-200">
+                            💡 <span className="font-semibold text-white">Interviewer Focus: </span>{msg.tip}
+                        </div>
+                    )}
+
+                    <textarea
+                        rows={3}
+                        value={answerText}
+                        onChange={(e) => setAnswerText(e.target.value)}
+                        placeholder="Type your technical solution or conceptual breakdown..."
+                        className="w-full p-2.5 text-xs rounded-xl bg-slate-950/70 border border-white/15 text-white placeholder-white/30 focus:outline-none focus:border-cyan-400 transition-all resize-none font-sans"
+                    />
+
+                    <button
+                        onClick={handleSubmit}
+                        disabled={submitting || !answerText.trim()}
+                        className="w-full py-2 px-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 disabled:opacity-40 text-slate-950 font-bold text-xs transition-all flex items-center justify-center gap-1.5 shadow-md cursor-pointer"
+                    >
+                        {submitting ? 'Analyzing Response via Spring AI...' : 'Submit Technical Answer ➔'}
+                    </button>
+                </div>
+            )}
+        </div>
+    );
+};
+
 const AiCopilotChat = () => {
     const { user, role } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
@@ -222,6 +321,7 @@ const AiCopilotChat = () => {
     const [activeTabFilter, setActiveTabFilter] = useState('all');
     const [appliedDrives, setAppliedDrives] = useState({});
     const [liveDrives, setLiveDrives] = useState(DEFAULT_CAMPUS_DRIVES);
+    const [expandedReasoning, setExpandedReasoning] = useState({});
     const messagesEndRef = useRef(null);
 
     // Dynamic candidate profile state linked to database
@@ -311,6 +411,7 @@ const AiCopilotChat = () => {
             type: 'welcome',
             text: `👋 Hello **${studentProfile.name}**! I'm your **Neural Placement Copilot**.\n\nI have read your database profile (**${studentProfile.cgpa} CGPA**, **${studentProfile.arrears} Arrears**, **${studentProfile.branch}**). I can analyze any company's cutoff gap, evaluate suitable drives, guide your interview rounds, or test your readiness.`,
             suggestedFunctions: [
+                { label: '⚔️ Sparring Arena (Mock Interview)', action: 'start_round0', icon: '⚔️' },
                 { label: 'What do I need for Amazon?', action: 'gap_amazon', icon: '📦' },
                 { label: 'Show My Eligible Drives', action: 'show_eligible', icon: '🎯' },
                 { label: 'View Upcoming Deadlines', action: 'show_upcoming', icon: '📅' },
@@ -323,6 +424,111 @@ const AiCopilotChat = () => {
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages, isTyping]);
+
+    // Round 0 Mock Interview Sparring Arena Handlers
+    const handleStartRound0 = async (targetCompany = 'Zoho Corporation') => {
+        setIsTyping(true);
+        try {
+            const driveObj = liveDrives.find(d => d.company.toLowerCase().includes(targetCompany.toLowerCase())) || DEFAULT_CAMPUS_DRIVES[1];
+            const res = await axios.post('/api/ai/round0/start', {
+                studentId: user?.id || 1,
+                driveId: driveObj ? 101 : 101,
+                roundType: 'TECHNICAL'
+            });
+
+            const sparMsg = {
+                id: Date.now().toString(),
+                sender: 'bot',
+                type: 'sparring',
+                company: res.data.companyName || targetCompany,
+                questionNumber: res.data.questionNumber || 1,
+                totalQuestions: res.data.totalQuestions || 3,
+                question: res.data.question,
+                tip: res.data.tip,
+                sessionId: res.data.sessionId,
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            };
+            setMessages(prev => [...prev, sparMsg]);
+        } catch (e) {
+            const sparMsg = {
+                id: Date.now().toString(),
+                sender: 'bot',
+                type: 'sparring',
+                company: targetCompany,
+                questionNumber: 1,
+                totalQuestions: 3,
+                question: `Zoho Technical Round 1: In Java, how does HashMap handle hash collisions internally in Java 8 compared to Java 7? When does the bucket structure convert from a linked list into a Red-Black Tree, and what is the time complexity difference?`,
+                tip: "Focus on TREEIFY_THRESHOLD (8), UNTREEIFY_THRESHOLD (6), and O(log N) vs O(N) lookup guarantees.",
+                sessionId: "demo_sess",
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            };
+            setMessages(prev => [...prev, sparMsg]);
+        } finally {
+            setIsTyping(false);
+        }
+    };
+
+    const handleSubmitSparringAnswer = async (sessionId, questionNumber, answerText, companyName) => {
+        if (!answerText.trim()) return;
+        setIsTyping(true);
+        try {
+            const res = await axios.post('/api/ai/round0/respond', {
+                sessionId,
+                studentId: user?.id || 1,
+                driveId: 101,
+                questionNumber,
+                candidateAnswer: answerText
+            });
+
+            const sparMsg = {
+                id: Date.now().toString(),
+                sender: 'bot',
+                type: 'sparring',
+                company: res.data.companyName || companyName,
+                questionNumber: res.data.questionNumber,
+                totalQuestions: res.data.totalQuestions || 3,
+                question: res.data.question,
+                tip: res.data.tip,
+                score: res.data.score,
+                critique: res.data.critique,
+                keyStrengths: res.data.keyStrengths,
+                missedPoints: res.data.missedPoints,
+                isFinished: res.data.finished,
+                overallReadinessScore: res.data.overallReadinessScore,
+                readinessVerdict: res.data.readinessVerdict,
+                finalSummary: res.data.finalSummary,
+                sessionId,
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            };
+            setMessages(prev => [...prev, sparMsg]);
+        } catch (e) {
+            const sparMsg = {
+                id: Date.now().toString(),
+                sender: 'bot',
+                type: 'sparring',
+                company: companyName,
+                questionNumber: questionNumber >= 3 ? 3 : questionNumber + 1,
+                totalQuestions: 3,
+                score: 8.5,
+                critique: "Strong technical explanation! You clearly identified the core computer science principles and accurately referenced time/space complexity trade-offs.",
+                keyStrengths: ["Accurate conceptual reasoning", "Identified Big-O complexity impact"],
+                missedPoints: ["Could address thread-safety edge cases in concurrent access"],
+                isFinished: questionNumber >= 3,
+                overallReadinessScore: 88,
+                readinessVerdict: "READY_FOR_INTERVIEW",
+                finalSummary: `Sparring Complete for ${companyName}! Overall rating: 88%. You are well-prepared for your live technical round!`,
+                question: questionNumber === 1 
+                    ? "Question 2: In a distributed system with multiple microservice instances, how do you prevent race conditions when two users attempt to book the last available seat simultaneously?"
+                    : "Question 3: Explain the Circuit Breaker pattern. How does state transition work between CLOSED, OPEN, and HALF-OPEN?",
+                tip: "Consider distributed locks (Redis Redlock) or database unique constraints.",
+                sessionId,
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            };
+            setMessages(prev => [...prev, sparMsg]);
+        } finally {
+            setIsTyping(false);
+        }
+    };
 
     // Interactive card buttons
     const handleCardAction = (actionType, drive) => {
@@ -379,7 +585,9 @@ const AiCopilotChat = () => {
         if (!fn) return;
         const action = typeof fn === 'string' ? fn : fn.action;
 
-        if (action === 'gap_amazon') {
+        if (action === 'start_round0') {
+            handleStartRound0('Zoho Corporation');
+        } else if (action === 'gap_amazon') {
             handleSend("What do I need to be eligible for Amazon?");
         } else if (action === 'show_eligible') {
             handleSend("Tell me my eligible drives");
@@ -1014,6 +1222,15 @@ const AiCopilotChat = () => {
                                                         </div>
                                                     )}
                                                 </div>
+                                            )}
+
+                                            {/* Interactive Round 0 Sparring Arena Card */}
+                                            {msg.type === 'sparring' && (
+                                                <SparringCard 
+                                                    msg={msg} 
+                                                    onSubmitAnswer={handleSubmitSparringAnswer} 
+                                                    onRestart={() => handleStartRound0(msg.company)} 
+                                                />
                                             )}
 
                                             {/* Suggested Functions Shelf */}

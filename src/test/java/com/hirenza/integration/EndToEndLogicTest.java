@@ -60,6 +60,24 @@ public class EndToEndLogicTest {
     @MockBean
     private ApplicationRepository applicationRepository;
 
+    @MockBean
+    private com.hirenza.service.MatchService matchService;
+
+    @MockBean
+    private com.hirenza.service.ResumeService resumeService;
+
+    @MockBean
+    private com.hirenza.service.AutopsyService autopsyService;
+
+    @MockBean
+    private com.hirenza.repository.SkillRepository skillRepository;
+
+    @MockBean
+    private org.springframework.ai.chat.client.ChatClient.Builder chatClientBuilder;
+
+    @MockBean
+    private org.springframework.ai.embedding.EmbeddingModel embeddingModel;
+
     @Test
     void testEndToEndEligibilityAndApplication() throws Exception {
         // 1. Setup our mock database records

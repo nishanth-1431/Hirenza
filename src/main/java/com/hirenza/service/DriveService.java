@@ -56,6 +56,15 @@ public class DriveService {
                 .companyName(request.getCompanyName())
                 .role(request.getRole())
                 .applicationDeadline(request.getApplicationDeadline());
+
+        if (request.getCtc() != null) {
+            builder.ctc(request.getCtc());
+        }
+        if (request.getTier() != null) {
+            try {
+                builder.tier(com.hirenza.domain.PlacementTier.valueOf(request.getTier()));
+            } catch (Exception ignored) {}
+        }
                 
         EligibilityRuleDto rules = request.getEligibilityRules();
         if (rules != null) {
@@ -115,7 +124,7 @@ public class DriveService {
                 .collect(Collectors.toList());
     }
 
-    // Endpoint for finding eligible drives for a student
+    // Endpoint for finding eligible drives for a student (strict filter for backward-compatibility)
     @Transactional(readOnly = true)
     public List<DriveResponse> getEligibleDrives(Long studentId) {
         Student student = studentRepository.findById(studentId)
@@ -133,5 +142,62 @@ public class DriveService {
                 })
                 .filter(DriveResponse::isEligible)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Comprehensive What-If Career Pathfinder: Evaluates all drives for a student,
+     * enriching each with tier lockout reasons, near-miss deficits, and Golden Ticket waiver eligibility.
+     */
+    @Transactional(readOnly = true)
+    public List<DriveResponse> getEvaluatedDrives(Long studentId) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+
+        return driveRepository.findAll().stream()
+                .map(drive -> {
+                    EligibilityResult result = eligibilityEvaluator.isEligible(student, drive);
+                    DriveResponse response = DriveMapper.toResponse(drive);
+                    response.setEligible(result.isEligible());
+                    response.setTierLocked(result.isTierLocked());
+                    response.setTierLockReason(result.getTierLockReason());
+                    response.setWhatIfAdvice(result.getWhatIfAdvice());
+                    response.setWaiverEligible(result.isWaiverEligible());
+                    response.setWaiverApplied(result.isWaiverApplied());
+                    response.setGoldenTicketsRemaining(student.getGoldenTicketsRemaining());
+
+                    if (!result.isEligible()) {
+                        response.setIneligibilityReason(result.getReason());
+                    }
+                    return response;
+                })
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Spends 1 TPO Golden Ticket to bypass near-miss eligibility cutoffs for a specific drive.
+     */
+    @Transactional
+    public DriveResponse claimGoldenTicket(Long studentId, Long driveId) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+        Drive drive = driveRepository.findById(driveId)
+                .orElseThrow(() -> new RuntimeException("Drive not found"));
+
+        if (student.getGoldenTicketsRemaining() <= 0) {
+            throw new RuntimeException("No TPO Golden Tickets remaining.");
+        }
+
+        student.setGoldenTicketDriveId(drive.getId());
+        student.setGoldenTicketsRemaining(student.getGoldenTicketsRemaining() - 1);
+        studentRepository.save(student);
+
+        EligibilityResult result = eligibilityEvaluator.isEligible(student, drive);
+        DriveResponse response = DriveMapper.toResponse(drive);
+        response.setEligible(result.isEligible());
+        response.setWaiverApplied(true);
+        response.setWaiverEligible(false);
+        response.setWhatIfAdvice("TPO Golden Ticket Endorsement Active. You are now eligible to apply!");
+        response.setGoldenTicketsRemaining(student.getGoldenTicketsRemaining());
+        return response;
     }
 }

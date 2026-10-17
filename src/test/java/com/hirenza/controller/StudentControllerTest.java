@@ -4,8 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hirenza.dto.DriveResponse;
 import com.hirenza.dto.StudentRequest;
 import com.hirenza.dto.StudentResponse;
-import com.hirenza.service.DriveService;
-import com.hirenza.service.StudentService;
+import com.hirenza.service.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +40,15 @@ public class StudentControllerTest {
 
     @MockBean
     private DriveService driveService;
+
+    @MockBean
+    private MatchService matchService;
+
+    @MockBean
+    private ResumeService resumeService;
+
+    @MockBean
+    private AutopsyService autopsyService;
 
     @Autowired
     private ObjectMapper objectMapper;

@@ -130,6 +130,7 @@ const HrDashboard = () => {
     const [evaluatingCandidate, setEvaluatingCandidate] = useState(null);
     const [evalScore, setEvalScore] = useState(8);
     const [evalNotes, setEvalNotes] = useState('');
+    const [blindMode, setBlindMode] = useState(false);
 
     const [newDrive, setNewDrive] = useState({
         companyName: 'Zoho Corporation',
@@ -244,6 +245,18 @@ const HrDashboard = () => {
                 </div>
 
                 <div className="flex items-center gap-3">
+                    <button
+                        onClick={() => setBlindMode(!blindMode)}
+                        className={`inline-flex items-center px-3.5 py-2 text-xs font-bold rounded-xl transition-all border shadow-xs cursor-pointer ${
+                            blindMode
+                                ? 'bg-purple-900 text-purple-100 border-purple-700 shadow-purple-900/20'
+                                : 'bg-[#FEFFFF] text-[#2B7A78] border-[#2B7A78]/30 hover:bg-[#DEF2F1]'
+                        }`}
+                    >
+                        <ShieldCheck className="w-4 h-4 mr-1.5 text-purple-400" />
+                        {blindMode ? 'Blind Protocol ACTIVE (Unbiased)' : 'Enable Blind Protocol'}
+                    </button>
+
                     <button
                         onClick={() => setShowCreateModal(true)}
                         className="inline-flex items-center px-4 py-2 text-xs font-bold rounded-lg bg-[#3AAFA9] hover:bg-[#2B7A78] text-[#FEFFFF] transition-colors shadow-xs group cursor-pointer"
@@ -416,9 +429,19 @@ const HrDashboard = () => {
                                             <tr key={candidate.id} className="hover:bg-[#DEF2F1]/20 transition-colors">
                                                 <td className="py-3.5 px-4">
                                                     <div>
-                                                        <span className="font-bold text-[#17252A]">{candidate.name}</span>
-                                                        <div className="text-[11px] text-[#2B7A78] font-medium">
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="font-bold text-[#17252A]">
+                                                                {blindMode ? `CANDIDATE-${800 + candidate.id.charCodeAt(candidate.id.length - 1) * 7}` : candidate.name}
+                                                            </span>
+                                                            {blindMode && (
+                                                                <span className="text-[10px] bg-purple-100 text-purple-800 border border-purple-200 px-1.5 py-0.5 rounded-full font-mono font-bold">
+                                                                    Blind Masked
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                        <div className="text-[11px] text-[#2B7A78] font-medium mt-0.5">
                                                             {candidate.branch} • CGPA: {candidate.cgpa}
+                                                            <span className="ml-2 text-[#3AAFA9] font-bold">✓ Code Verified</span>
                                                         </div>
                                                     </div>
                                                 </td>

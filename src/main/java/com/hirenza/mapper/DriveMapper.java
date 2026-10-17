@@ -14,6 +14,8 @@ public class DriveMapper {
         response.setCompanyName(drive.getCompanyName());
         response.setRole(drive.getRole());
         response.setApplicationDeadline(drive.getApplicationDeadline());
+        response.setCtc(drive.getCtc() != null ? drive.getCtc() : 6.0);
+        response.setTier(drive.getTier() != null ? drive.getTier().name() : "DREAM_TIER");
         
         if (drive.getEligibilityRules() != null && !drive.getEligibilityRules().isEmpty()) {
             EligibilityRuleDto rulesDto = new EligibilityRuleDto();

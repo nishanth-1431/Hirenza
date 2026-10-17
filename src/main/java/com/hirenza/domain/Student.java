@@ -42,6 +42,31 @@ public class Student {
     @Column(name = "arrears_count", nullable = false)
     private int arrearsCount;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "current_placed_tier")
+    private PlacementTier currentPlacedTier;
+
+    @Column(name = "placed_company_name")
+    private String placedCompanyName;
+
+    @Column(name = "placed_ctc_lpa")
+    private Double placedCtcLpa;
+
+    @Column(name = "golden_tickets_remaining", nullable = false)
+    private int goldenTicketsRemaining = 1;
+
+    @Column(name = "golden_ticket_drive_id")
+    private Long goldenTicketDriveId;
+
+    @Column(name = "github_url")
+    private String githubUrl;
+
+    @Column(name = "is_code_verified", nullable = false)
+    private boolean isCodeVerified = false;
+
+    @Column(name = "code_integrity_badge")
+    private String codeIntegrityBadge;
+
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Application> applications = new ArrayList<>();
 
@@ -63,6 +88,8 @@ public class Student {
         this.arrearsCount = arrearsCount;
         this.password = password;
         this.isVerified = false;
+        this.goldenTicketsRemaining = 1;
+        this.isCodeVerified = false;
     }
 
     public void addApplication(Application application) {
@@ -89,6 +116,23 @@ public class Student {
     public int getArrearsCount() { return arrearsCount; }
     public List<Application> getApplications() { return applications; }
     public List<Resume> getResumes() { return resumes; }
+
+    public PlacementTier getCurrentPlacedTier() { return currentPlacedTier; }
+    public void setCurrentPlacedTier(PlacementTier currentPlacedTier) { this.currentPlacedTier = currentPlacedTier; }
+    public String getPlacedCompanyName() { return placedCompanyName; }
+    public void setPlacedCompanyName(String placedCompanyName) { this.placedCompanyName = placedCompanyName; }
+    public Double getPlacedCtcLpa() { return placedCtcLpa; }
+    public void setPlacedCtcLpa(Double placedCtcLpa) { this.placedCtcLpa = placedCtcLpa; }
+    public int getGoldenTicketsRemaining() { return goldenTicketsRemaining; }
+    public void setGoldenTicketsRemaining(int goldenTicketsRemaining) { this.goldenTicketsRemaining = goldenTicketsRemaining; }
+    public Long getGoldenTicketDriveId() { return goldenTicketDriveId; }
+    public void setGoldenTicketDriveId(Long goldenTicketDriveId) { this.goldenTicketDriveId = goldenTicketDriveId; }
+    public String getGithubUrl() { return githubUrl; }
+    public void setGithubUrl(String githubUrl) { this.githubUrl = githubUrl; }
+    public boolean isCodeVerified() { return isCodeVerified; }
+    public void setCodeVerified(boolean codeVerified) { isCodeVerified = codeVerified; }
+    public String getCodeIntegrityBadge() { return codeIntegrityBadge; }
+    public void setCodeIntegrityBadge(String codeIntegrityBadge) { this.codeIntegrityBadge = codeIntegrityBadge; }
 
     @Override
     public String toString() {
